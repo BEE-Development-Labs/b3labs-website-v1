@@ -3,13 +3,63 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="B3 Labs — The co-builder venture studio for early-stage founders. We provide infrastructure, funding, and shared resources to accelerate your startup." />
+    <meta name="keywords" content="blockchain, venture studio, startup incubation, Web3, DeFi, funding, infrastructure" />
+    <meta name="author" content="B3 Labs" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://b3labs.vc/" />
+    <meta property="og:title" content="B3 Labs — Building the Future, Block-By-Block" />
+    <meta property="og:description" content="The co-builder venture studio for early-stage founders. Get infrastructure, funding, and shared resources." />
+    <meta property="og:image" content="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611ddd0219b5cc025011728_Hero%20Image.png" />
+    <meta property="og:site_name" content="B3 Labs" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://b3labs.vc/" />
+    <meta property="twitter:title" content="B3 Labs — Building the Future, Block-By-Block" />
+    <meta property="twitter:description" content="The co-builder venture studio for early-stage founders. Get infrastructure, funding, and shared resources." />
+    <meta property="twitter:image" content="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611ddd0219b5cc025011728_Hero%20Image.png" />
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://b3labs.vc/" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="dns-prefetch" href="https://cdn.prod.website-files.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s2/satoshi/v1/....woff2" as="font" type="font/woff2" crossorigin />
+    
     <title>B3 Labs — Blockchain Solutions</title>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Skip to content link for accessibility -->
+    <style>
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #000;
+        color: white;
+        padding: 8px;
+        z-index: 100;
+        transition: top 0.3s;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+    </style>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- <header class="nav">
       <div class="container nav-inner">
         <div class="brand">
@@ -21,78 +71,85 @@
       </div>
     </header> -->
 
-    <main>
-      <section class="hero">
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="container hero-grid">
           <div class="hero-copy">
             <div class="brand">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/661e820917e4c762ca5ae8e8_Logo.svg" alt="B3 Labs" />
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/661e820917e4c762ca5ae8e8_Logo.svg" alt="B3 Labs" width="200" height="52" loading="eager" />
             </div>
-            <h1>Building the Future, Block-By-Block</h1>
+            <h1 id="hero-title">Building the Future, Block-By-Block</h1>
             <p class="tagline">The co-builder venture studio for early-stage founders</p>
-            <button class="btn btn-primary">Incubate with Us</button>
+            <a href="build.html" class="btn btn-primary" aria-label="Apply for incubation">Incubate with Us</a>
           </div>
           <div class="hero-media">
-            <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611ddd0219b5cc025011728_Hero%20Image.png" alt="Hero graphic" />
+            <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611ddd0219b5cc025011728_Hero%20Image.png" alt="B3 Labs hero graphic showing blockchain technology" width="760" height="600" loading="eager" />
           </div>
         </div>
       </section>
 
-      <section class="features">
+      <section class="features" aria-labelledby="features-title">
         <div class="container">
-          <h2 class="section-title">The Startup Grind is Broken</h2>
+          <h2 id="features-title" class="section-title">The Startup Grind is Broken</h2>
           <div class="cards three-col">
-            <article class="card">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cf68b67a0f3a1dc688_Track%404x.png" alt="Graphic" />
+            <article class="card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cf68b67a0f3a1dc688_Track%404x.png" alt="Icon representing friction and time tracking" loading="lazy" width="200" height="180" />
               <h3>70% Friction</h3>
               <p>Founders spend more time on DevOps, Legal, and HR than on their actual product.</p>
             </article>
-            <article class="card">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8ceef2fa5cc96adfaf5_Tower%404x.png" alt="Graphic" />
+            <article class="card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8ceef2fa5cc96adfaf5_Tower%404x.png" alt="Icon representing failure rate" loading="lazy" width="200" height="180" />
               <h3>90% failure rate</h3>
               <p>Most startups fail due to execution gaps, not bad ideas.</p>
             </article>
-            <article class="card">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cf721f152666a36391_Stair%404x.png" alt="Graphic" />
+            <article class="card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cf721f152666a36391_Stair%404x.png" alt="Icon representing resource gap" loading="lazy" width="200" height="180" />
               <h3>The Resource gap</h3>
-              <p> Early-stage teams lack the budget for high-level specialized talent.</p>
+              <p>Early-stage teams lack the budget for high-level specialized talent.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="services">
+      <section class="services" aria-labelledby="services-title">
         <div class="container">
-          <h2 class="section-title">The B3 Soution</h2>
+          <h2 id="services-title" class="section-title">The B3 Solution</h2>
           <div class="cards three-col">
-            <article class="card">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cfcc15022b354b430e_Organise%404x.png" alt="Blocks" />
+            <article class="card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cfcc15022b354b430e_Organise%404x.png" alt="Ideation - market research and validation" loading="lazy" width="200" height="180" />
               <h3>Ideation</h3>
               <p>Deep market research and internal validation at B3 Labs.</p>
             </article>
-            <article class="card">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cff69a1654a53c55ac_Build%404x.png" alt="Blocks" />
+            <article class="card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cff69a1654a53c55ac_Build%404x.png" alt="Infrastructure - tech stacks and support" loading="lazy" width="200" height="180" />
               <h3>Infrastructure</h3>
-              <p>lug-and-play tech stacks and operational support.</p>
+              <p>Plug-and-play tech stacks and operational support.</p>
             </article>
-            <article class="card">
-              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cfc4e2b5eaea1be154_Scale%404x.png" alt="Blocks" />
+            <article class="card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
+              <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/6611d8cfc4e2b5eaea1be154_Scale%404x.png" alt="Scale - funding and growth" loading="lazy" width="200" height="180" />
               <h3>Scale</h3>
-              <p> Venture funding and spinning off into independent entities.</p>
+              <p>Venture funding and spinning off into independent entities.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="ecosystem">
+      <section class="ecosystem" aria-labelledby="ecosystem-title">
         <div class="container">
-          <h2 class="section-title">Two Engines, One Mission</h2>
+          <h2 id="ecosystem-title" class="section-title">Two Engines, One Mission</h2>
           <p class="section-subtitle">A studio and a fund working in lockstep to build what's next.</p>
           <div class="cards two-col">
-            <article class="card ecosystem-card">
+            <article class="card ecosystem-card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
               <span class="card-label">B3 Labs</span>
               <h3>The Studio Arm</h3>
-              <p>We build from zero. Internal projects like Project B and Project Y are forged here — from raw idea to working
+              <p>We build from zero. Internal projects like Yego Finance and Berafarm are forged here — from raw idea to working
                 product using our own methodology.</p>
               <ul class="card-list">
                 <li>Internal project incubation</li>
@@ -100,7 +157,8 @@
                 <li>Deep market validation</li>
               </ul>
             </article>
-            <article class="card ecosystem-card">
+            <article class="card ecosystem-card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
               <span class="card-label">B3 Ventures</span>
               <h3>The Investment Arm</h3>
               <p>Early-stage funding for external founders who get more than capital — they get the entire B3 shared resource
@@ -110,51 +168,28 @@
                 <li>Access to shared infrastructure</li>
                 <li>Co-builder partnership</li>
               </ul>
+              <a href="build.html" class="btn btn-primary" style="margin-top:1.5rem;font-size:var(--text-sm);padding:10px 22px;">Learn More →</a>
             </article>
           </div>
         </div>
       </section>
       
-      <!-- SHARED RESOURCE STACK SECTION -->
-      <section class="stack">
-        <div class="container">
-          <h2 class="section-title">Founders Start on Day 180</h2>
-          <p class="section-subtitle">We hand you the foundation so you skip the setup and get straight to building.</p>
-          <div class="cards three-col">
-            <article class="card stack-card">
-              <div class="card-icon">⚙️</div>
-              <h3>Technical</h3>
-              <p>Unified DevOps, CI/CD pipelines, and pre-built Auth and Payment modules ready to plug in from day one.</p>
-            </article>
-            <article class="card stack-card">
-              <div class="card-icon">📈</div>
-              <h3>Growth</h3>
-              <p>Battle-tested GTM playbooks and vetted marketing channels so you don't waste budget figuring out what works.
-              </p>
-            </article>
-            <article class="card stack-card">
-              <div class="card-icon">🏢</div>
-              <h3>Back-Office</h3>
-              <p>Fractional CFO support, legal templates, and a talent pipeline — the infrastructure most startups spend
-                months building.</p>
-            </article>
-          </div>
-        </div>
-      </section>
       
       <!-- PORTFOLIO / TRACTION SECTION -->
-      <section class="portfolio">
+      <section class="portfolio" aria-labelledby="portfolio-title">
         <div class="container">
-          <h2 class="section-title">The Engine in Action</h2>
+          <h2 id="portfolio-title" class="section-title">The Engine in Action</h2>
           <p class="section-subtitle">Built by B3. Proof that the method works.</p>
           <div class="cards two-col">
-            <article class="card portfolio-card">
+            <article class="card portfolio-card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
               <span class="card-label">DeFi</span>
               <h3>Yego Finance</h3>
               <p>DeFi structured investment vaults engineered for capital efficiency and sustainable yield in decentralized
                 markets.</p>
             </article>
-            <article class="card portfolio-card">
+            <article class="card portfolio-card" data-animate>
+              <div class="card-skeleton" aria-hidden="true"></div>
               <span class="card-label">Berachain</span>
               <h3>BeraFarm</h3>
               <p>A DeFi platform built to maximize Berachain Proof-of-Liquidity — purpose-built for one of the most
@@ -164,33 +199,12 @@
         </div>
       </section>
       
-      <!-- WHY B3 SECTION -->
-      <section class="why-b3">
-        <div class="container why-b3-inner">
-          <p class="why-label">Why build with us</p>
-          <h2 class="why-headline">You bring the vision.<br />We provide the foundation.</h2>
-          <p class="why-sub">We are co-builders. We de-risk the venture for investors and accelerate the timeline for
-            founders. More than a check — we're in it with you.</p>
-        </div>
-      </section>
 
-      <!-- CTA + FOOTER -->
-      <section class="cta">
-        <div class="container cta-inner">
-          <h2>Let's Build the Next Block</h2>
-          <p>We're now accepting applications for incubation. If you have the vision, we have everything else.</p>
-          <div class="cta-actions">
-            <a href="mailto:ops@b3labs.vc" class="btn btn-primary">Apply for Incubation</a>
-            <span class="cta-contact">or reach us at <a href="mailto:ops@b3labs.vc">ops@b3labs.vc</a></span>
-          </div>
-        </div>
-      </section>
-
-      <footer class="site-footer">
+      <footer class="site-footer" role="contentinfo">
         <div class="container footer-inner">
           <div class="footer-left">
             <img src="https://cdn.prod.website-files.com/660bf4298cc445600fa145e1/661e820917e4c762ca5ae8e8_Logo.svg"
-              alt="B3 Labs" />
+              alt="B3 Labs" width="120" height="40" loading="lazy" />
             <p>Building the future, block-by-block. A venture studio and fund for early-stage founders.</p>
           </div>
           <div class="footer-right">
@@ -201,7 +215,7 @@
         </div>
         <div class="container footer-bottom">
           <span>© 2025 B3 Labs & Ventures. All Rights Reserved.</span>
-          <nav class="footer-nav">
+          <nav class="footer-nav" aria-label="Footer navigation">
             <a href="#hero">Home</a>
             <a href="#features">Problem</a>
             <a href="#services">Solution</a>
@@ -210,5 +224,8 @@
           </nav>
         </div>
       </footer>
+    
+    <!-- JavaScript for interactions -->
+    <script src="js/main.js" defer></script>
   </body>
 </html>
