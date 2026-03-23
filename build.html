@@ -60,9 +60,6 @@
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <div style="position:sticky;top:0;z-index:50;padding:0.75rem 2rem;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(10,10,15,0.07);display:flex;align-items:center;">
-      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:600;color:#0a0a0f;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">← Back to Home</a>
-    </div>
     <!-- <header class="nav">
       <div class="container nav-inner">
         <div class="brand">
@@ -76,7 +73,8 @@
 
     <main id="main-content">
       <!-- WHY B3 SECTION -->
-      <section class="why-b3">
+      <section class="why-b3" style="position:relative;">
+        <a href="index.html" class="back-home-btn" aria-label="Back to Home">← Home</a>
         <div class="container why-b3-inner">
           <p class="why-label">Why build with us</p>
           <h2 class="why-headline">You bring the vision.<br />We provide the foundation.</h2>
