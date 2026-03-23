@@ -220,6 +220,14 @@ body {
   animation: fadeInRight 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s both;
 }
 
+#hero-network {
+  width: 100%;
+  max-width: 760px;
+  aspect-ratio: 760 / 600;
+  display: block;
+  border-radius: var(--radius-md);
+}
+
 .hero-media img {
   width: 100%;
   max-width: 760px;
@@ -337,6 +345,15 @@ body {
 @keyframes skeleton-loading {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+.card-canvas {
+  width: 100%;
+  height: clamp(140px, 20vw, 200px);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius-sm);
 }
 
 .card img {
