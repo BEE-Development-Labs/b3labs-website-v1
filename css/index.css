@@ -452,6 +452,25 @@ body {
   }
 }
 
+/* ─── Back to Home button ────────────────────── */
+.back-home-btn {
+  position: absolute;
+  top: clamp(1.2rem, 3vw, 2rem);
+  left: clamp(1.2rem, 4vw, 2.5rem);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s, transform 0.2s;
+  z-index: 10;
+}
+
+.back-home-btn:hover {
+  color: rgba(255,255,255,0.9);
+  transform: translateX(-3px);
+}
+
 /* ─── Sections — alternating tinted panels over the mesh ── */
 .features  { padding: clamp(4rem, 8vw, 7.5rem) 0; background: rgba(255,255,255,0.45) }
 .services  { padding: clamp(4rem, 8vw, 7.5rem) 0; background: rgba(220,232,255,0.3) }
