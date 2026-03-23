@@ -677,6 +677,347 @@
     return draw;
   }
 
+  // ─── 7. TECHNICAL — interlocking gears with data pipeline ────
+  function technicalAnim(canvas) {
+    let { ctx, w, h } = setupCanvas(canvas);
+    const cx = w / 2, cy = h * 0.45;
+
+    const gears = [
+      { x: cx - w * 0.18, y: cy - h * 0.05, r: Math.min(w, h) * 0.18, teeth: 10, dir: 1,  color: TEAL },
+      { x: cx + w * 0.15, y: cy + h * 0.08,  r: Math.min(w, h) * 0.13, teeth: 8,  dir: -1, color: BLUE },
+      { x: cx + w * 0.32, y: cy - h * 0.06,  r: Math.min(w, h) * 0.09, teeth: 6,  dir: 1,  color: DARK },
+    ];
+
+    // Data packets flowing through
+    const packets = [];
+    for (let i = 0; i < 6; i++) {
+      packets.push({ offset: i / 6, size: 3 + Math.random() * 2 });
+    }
+
+    function drawGear(g, angle) {
+      ctx.save();
+      ctx.translate(g.x, g.y);
+      ctx.rotate(angle * g.dir);
+
+      // Gear body
+      ctx.beginPath();
+      ctx.arc(0, 0, g.r * 0.7, 0, Math.PI * 2);
+      ctx.fillStyle = g.color;
+      ctx.globalAlpha = 0.12;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Teeth
+      for (let i = 0; i < g.teeth; i++) {
+        const a = (i / g.teeth) * Math.PI * 2;
+        const toothW = (Math.PI * 2 / g.teeth) * 0.35;
+        ctx.beginPath();
+        ctx.arc(0, 0, g.r, a - toothW, a + toothW);
+        ctx.arc(0, 0, g.r * 0.78, a + toothW, a - toothW, true);
+        ctx.closePath();
+        ctx.fillStyle = g.color;
+        ctx.fill();
+      }
+
+      // Outer ring
+      ctx.beginPath();
+      ctx.arc(0, 0, g.r * 0.78, 0, Math.PI * 2);
+      ctx.strokeStyle = g.color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Inner ring
+      ctx.beginPath();
+      ctx.arc(0, 0, g.r * 0.35, 0, Math.PI * 2);
+      ctx.strokeStyle = g.color;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Center dot
+      ctx.beginPath();
+      ctx.arc(0, 0, 3, 0, Math.PI * 2);
+      ctx.fillStyle = g.color;
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      const s = t * 0.001;
+      const angle = s * 0.8;
+
+      // Draw gears
+      for (const g of gears) drawGear(g, angle);
+
+      // Pipeline path across bottom
+      const pipeY = h * 0.82;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.05, pipeY);
+      ctx.lineTo(w * 0.95, pipeY);
+      ctx.strokeStyle = 'rgba(13, 148, 136, 0.2)';
+      ctx.lineWidth = 8;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Pipeline border
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(13, 148, 136, 0.35)';
+      ctx.beginPath();
+      ctx.moveTo(w * 0.05, pipeY - 4);
+      ctx.lineTo(w * 0.95, pipeY - 4);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(w * 0.05, pipeY + 4);
+      ctx.lineTo(w * 0.95, pipeY + 4);
+      ctx.stroke();
+
+      // Flowing data packets
+      for (const p of packets) {
+        const px = ((s * 0.15 + p.offset) % 1) * w * 0.9 + w * 0.05;
+        ctx.beginPath();
+        ctx.arc(px, pipeY, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = CYAN;
+        ctx.fill();
+      }
+
+      // Connector lines from gears to pipeline
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = 'rgba(15, 90, 106, 0.15)';
+      ctx.lineWidth = 1;
+      for (const g of gears) {
+        ctx.beginPath();
+        ctx.moveTo(g.x, g.y + g.r * 0.78);
+        ctx.lineTo(g.x, pipeY - 6);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+    }
+    return draw;
+  }
+
+  // ─── 8. GROWTH — pulsing chart with expanding ripples ────
+  function growthAnim(canvas) {
+    let { ctx, w, h } = setupCanvas(canvas);
+    const baseY = h * 0.82;
+    const startX = w * 0.1;
+    const endX = w * 0.9;
+
+    const dataPoints = [
+      { x: 0,    y: 0.1 },
+      { x: 0.15, y: 0.15 },
+      { x: 0.3,  y: 0.25 },
+      { x: 0.45, y: 0.22 },
+      { x: 0.55, y: 0.4 },
+      { x: 0.7,  y: 0.55 },
+      { x: 0.85, y: 0.72 },
+      { x: 1.0,  y: 0.92 },
+    ];
+
+    function getY(frac) { return baseY - frac * (h * 0.7); }
+    function getX(frac) { return startX + frac * (endX - startX); }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      const s = t * 0.001;
+
+      // Grid
+      ctx.strokeStyle = 'rgba(15, 90, 106, 0.07)';
+      ctx.lineWidth = 0.8;
+      for (let i = 0; i <= 4; i++) {
+        const gy = baseY - i * (h * 0.7 / 4);
+        ctx.beginPath();
+        ctx.moveTo(startX, gy);
+        ctx.lineTo(endX, gy);
+        ctx.stroke();
+      }
+
+      // Animate drawing progress
+      const progress = Math.min(1, (s % 5) / 2);
+      const ease = easeOutCubic(progress);
+      const visibleCount = Math.ceil(ease * dataPoints.length);
+
+      // Area fill
+      ctx.beginPath();
+      ctx.moveTo(getX(dataPoints[0].x), baseY);
+      for (let i = 0; i < visibleCount; i++) {
+        const p = dataPoints[i];
+        const bounce = Math.sin(s * 2.5 + i * 0.8) * 4;
+        ctx.lineTo(getX(p.x), getY(p.y) + bounce);
+      }
+      const lastVis = dataPoints[Math.min(visibleCount - 1, dataPoints.length - 1)];
+      ctx.lineTo(getX(lastVis.x), baseY);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, h * 0.1, 0, baseY);
+      grad.addColorStop(0, 'rgba(13, 148, 136, 0.18)');
+      grad.addColorStop(1, 'rgba(13, 148, 136, 0.02)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      for (let i = 0; i < visibleCount; i++) {
+        const p = dataPoints[i];
+        const bounce = Math.sin(s * 2.5 + i * 0.8) * 4;
+        const px = getX(p.x);
+        const py = getY(p.y) + bounce;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = TEAL;
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Data points with ripples
+      for (let i = 0; i < visibleCount; i++) {
+        const p = dataPoints[i];
+        const bounce = Math.sin(s * 2.5 + i * 0.8) * 4;
+        const px = getX(p.x);
+        const py = getY(p.y) + bounce;
+
+        // Ripple
+        const ripplePhase = (s * 1.5 + i * 0.5) % 2;
+        if (ripplePhase < 1.5) {
+          const rippleR = ripplePhase * 15;
+          const rippleAlpha = Math.max(0, 0.3 - ripplePhase * 0.2);
+          ctx.beginPath();
+          ctx.arc(px, py, rippleR, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(13, 148, 136, ${rippleAlpha.toFixed(2)})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Dot
+        const pulse = 1 + Math.sin(s * 3 + i) * 0.15;
+        ctx.beginPath();
+        ctx.arc(px, py, 4.5 * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = i === visibleCount - 1 ? TEAL : BLUE;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
+
+      // Baseline
+      ctx.beginPath();
+      ctx.moveTo(startX, baseY);
+      ctx.lineTo(endX, baseY);
+      ctx.strokeStyle = 'rgba(15, 90, 106, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    return draw;
+  }
+
+  // ─── 9. BACK-OFFICE — building with orbiting document icons ────
+  function backofficeAnim(canvas) {
+    let { ctx, w, h } = setupCanvas(canvas);
+    const cx = w / 2, cy = h * 0.5;
+    const bldgW = w * 0.25;
+    const bldgH = h * 0.5;
+    const bldgX = cx - bldgW / 2;
+    const bldgY = cy - bldgH * 0.3;
+
+    // Orbiting items
+    const orbitItems = [
+      { label: '§', angle: 0, dist: 1, speed: 0.4 },        // legal
+      { label: '$', angle: Math.PI * 0.5, dist: 1.1, speed: 0.35 },  // finance
+      { label: '⊕', angle: Math.PI, dist: 0.95, speed: 0.45 },       // talent
+      { label: '✓', angle: Math.PI * 1.5, dist: 1.05, speed: 0.38 }, // compliance
+    ];
+
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      const s = t * 0.001;
+
+      // Building
+      const pulse = 1 + Math.sin(s * 1.5) * 0.01;
+      const bw = bldgW * pulse;
+      const bx = cx - bw / 2;
+
+      // Building body
+      ctx.fillStyle = 'rgba(13, 148, 136, 0.1)';
+      ctx.fillRect(bx, bldgY, bw, bldgH);
+      ctx.strokeStyle = TEAL;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bx, bldgY, bw, bldgH);
+
+      // Roof triangle
+      ctx.beginPath();
+      ctx.moveTo(bx - 8, bldgY);
+      ctx.lineTo(cx, bldgY - bldgH * 0.25);
+      ctx.lineTo(bx + bw + 8, bldgY);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(21, 101, 160, 0.12)';
+      ctx.fill();
+      ctx.strokeStyle = BLUE;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Windows (grid)
+      const cols = 3, rows = 4;
+      const winW = bw * 0.16;
+      const winH = bldgH * 0.08;
+      const winGapX = (bw - cols * winW) / (cols + 1);
+      const winGapY = (bldgH * 0.85 - rows * winH) / (rows + 1);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const wx = bx + winGapX + c * (winW + winGapX);
+          const wy = bldgY + bldgH * 0.1 + winGapY + r * (winH + winGapY);
+          const lit = Math.sin(s * 2 + r * 1.3 + c * 0.7) > 0;
+          ctx.fillStyle = lit ? 'rgba(34, 167, 167, 0.35)' : 'rgba(15, 90, 106, 0.1)';
+          ctx.fillRect(wx, wy, winW, winH);
+        }
+      }
+
+      // Door
+      const doorW = bw * 0.2;
+      const doorH = bldgH * 0.15;
+      ctx.fillStyle = DARK;
+      ctx.fillRect(cx - doorW / 2, bldgY + bldgH - doorH, doorW, doorH);
+
+      // Orbiting icons
+      const orbitR = Math.max(bw, bldgH) * 0.55;
+      ctx.font = `700 ${Math.max(14, w * 0.08)}px Satoshi, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      for (const item of orbitItems) {
+        item.angle += item.speed * 0.016;
+        const d = orbitR * item.dist + Math.sin(s * 2 + item.angle) * 8;
+        const ix = cx + Math.cos(item.angle) * d;
+        const iy = cy + Math.sin(item.angle) * d * 0.55;
+
+        // Connection line
+        ctx.beginPath();
+        ctx.moveTo(ix, iy);
+        ctx.lineTo(cx, cy);
+        ctx.strokeStyle = 'rgba(34, 167, 167, 0.1)';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+
+        // Background circle
+        const bgR = Math.max(12, w * 0.05);
+        ctx.beginPath();
+        ctx.arc(ix, iy, bgR, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(21, 101, 160, 0.08)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(21, 101, 160, 0.25)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        // Symbol
+        const alpha = 0.55 + Math.sin(s * 3 + item.angle) * 0.2;
+        ctx.fillStyle = `rgba(21, 101, 160, ${alpha.toFixed(2)})`;
+        ctx.fillText(item.label, ix, iy);
+      }
+    }
+    return draw;
+  }
+
   // ─── Animation loop manager ────────────────────
   const animMap = {
     'friction': frictionAnim,
@@ -685,6 +1026,9 @@
     'ideation': ideationAnim,
     'infrastructure': infrastructureAnim,
     'scale': scaleAnim,
+    'technical': technicalAnim,
+    'growth': growthAnim,
+    'backoffice': backofficeAnim,
   };
 
   const canvases = document.querySelectorAll('.card-canvas[data-anim]');
