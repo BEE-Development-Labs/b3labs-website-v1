@@ -28,12 +28,12 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   
-  /* Gradient palette - soft, modern colors */
-  --grad-a: #e8f4ff;   /* soft sky blue   */
-  --grad-b: #f3e8ff;   /* soft lavender   */
-  --grad-c: #e0f7ff;   /* pale cyan       */
-  --grad-d: #fce8ff;   /* blush violet    */
-  --grad-e: #e8fff3;   /* soft mint       */
+  /* Gradient palette - brand colors (teal, pink, gold) */
+  --grad-a: #ddf4f4;   /* soft teal       */
+  --grad-b: #fde8f1;   /* soft pink       */
+  --grad-c: #f5f2d9;   /* soft gold       */
+  --grad-d: #fde8f1;   /* soft pink       */
+  --grad-e: #ddf4f4;   /* soft teal       */
   
   /* Fluid typography scale with better line-height ratios */
   --text-xs: clamp(0.7rem, 0.65rem + 0.2vw, 0.8rem);

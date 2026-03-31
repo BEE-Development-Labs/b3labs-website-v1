@@ -2,11 +2,17 @@
   'use strict';
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const TEAL  = '#0d9488';
-  const BLUE  = '#1565a0';
-  const CYAN  = '#22a7a7';
-  const DARK  = '#0f5a6a';
-  const LIGHT = '#a7f3d0';
+  // Brand palette: Teal, Pink, Gold
+  const TEAL  = '#47C4C6';
+  const PINK  = '#F4A0C4';
+  const GOLD  = '#D2BF3D';
+  const TEAL_DARK = '#339a9c';
+  const PINK_DARK = '#c87da0';
+
+  // Legacy aliases for minimal churn
+  const BLUE  = PINK;
+  const CYAN  = GOLD;
+  const DARK  = TEAL_DARK;
 
   // ─── Utility ──────────────────────────────────
   function setupCanvas(canvas) {
@@ -44,7 +50,7 @@
       // Inner fill
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(13, 148, 136, 0.06)';
+      ctx.fillStyle = 'rgba(71, 196, 198, 0.06)';
       ctx.fill();
 
       // Tick marks
@@ -96,7 +102,7 @@
         const lx = cx + Math.cos(angle) * orbitR;
         const ly = cy + Math.sin(angle) * orbitR;
         const alpha = 0.45 + Math.sin(s * 3 + i * 1.5) * 0.25;
-        ctx.fillStyle = `rgba(21, 101, 160, ${alpha.toFixed(2)})`;
+        ctx.fillStyle = `rgba(244, 160, 196, ${alpha.toFixed(2)})`;
         ctx.fillText(labels[i], lx, ly);
       }
     }
@@ -146,7 +152,7 @@
 
         if (barH < 1) continue;
 
-        const color = bar.survive ? TEAL : `rgba(21, 101, 160, ${(0.7 - bar.collapsed * 0.5).toFixed(2)})`;
+        const color = bar.survive ? TEAL : `rgba(244, 160, 196, ${(0.7 - bar.collapsed * 0.5).toFixed(2)})`;
 
         // Bar
         const rx = bar.x;
@@ -179,7 +185,7 @@
             const py = baseY - Math.random() * 15 * (1 - bar.collapsed);
             ctx.beginPath();
             ctx.arc(px, py, 2 + Math.random() * 2, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(21, 101, 160, ${(0.3 * (1 - bar.collapsed)).toFixed(2)})`;
+            ctx.fillStyle = `rgba(244, 160, 196, ${(0.3 * (1 - bar.collapsed)).toFixed(2)})`;
             ctx.fill();
           }
         }
@@ -189,7 +195,7 @@
       ctx.beginPath();
       ctx.moveTo(gap, baseY + 1);
       ctx.lineTo(w - gap, baseY + 1);
-      ctx.strokeStyle = 'rgba(15, 90, 106, 0.2)';
+      ctx.strokeStyle = 'rgba(51, 154, 156, 0.2)';
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -198,7 +204,7 @@
         const alpha = Math.min(1, (cycle - 4.5) / 1);
         ctx.font = `700 ${Math.max(11, w * 0.065)}px Satoshi, system-ui, sans-serif`;
         ctx.textAlign = 'center';
-        ctx.fillStyle = `rgba(13, 148, 136, ${alpha.toFixed(2)})`;
+        ctx.fillStyle = `rgba(71, 196, 198, ${alpha.toFixed(2)})`;
         ctx.fillText('1 in 10', w / 2, h * 0.15);
       }
     }
@@ -248,7 +254,7 @@
       ctx.beginPath();
       ctx.moveTo(leftEnd, platY + platH / 2);
       ctx.lineTo(rightStart, platY + platH / 2);
-      ctx.strokeStyle = 'rgba(15, 90, 106, 0.2)';
+      ctx.strokeStyle = 'rgba(51, 154, 156, 0.2)';
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.setLineDash([]);
@@ -262,7 +268,7 @@
         const itemT = cycle - item.delay;
         if (itemT < 0) {
           // Show sitting on edge
-          ctx.fillStyle = `rgba(21, 101, 160, 0.6)`;
+          ctx.fillStyle = `rgba(244, 160, 196, 0.6)`;
           ctx.fillText(item.symbol, item.x, platY - 14);
           continue;
         }
@@ -273,7 +279,7 @@
         const alpha = Math.max(0, 1 - fallT / 2.5);
 
         if (alpha > 0) {
-          ctx.fillStyle = `rgba(21, 101, 160, ${alpha.toFixed(2)})`;
+          ctx.fillStyle = `rgba(244, 160, 196, ${alpha.toFixed(2)})`;
           ctx.fillText(item.symbol, item.x + Math.sin(fallT * 3) * 5, fallY);
         }
       }
@@ -304,7 +310,7 @@
         const py = platY - 18;
         ctx.beginPath();
         ctx.arc(px, py - 6, 5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(13, 148, 136, ${0.5 + Math.sin(s * 2 + i) * 0.2})`;
+        ctx.fillStyle = `rgba(71, 196, 198, ${0.5 + Math.sin(s * 2 + i) * 0.2})`;
         ctx.fill();
         ctx.beginPath();
         ctx.moveTo(px, py);
@@ -356,8 +362,8 @@
 
       // Glow
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, bulbR * 2.2);
-      grad.addColorStop(0, `rgba(34, 167, 167, ${(0.15 + Math.sin(s * 2.5) * 0.08).toFixed(2)})`);
-      grad.addColorStop(1, 'rgba(34, 167, 167, 0)');
+      grad.addColorStop(0, `rgba(71, 196, 198, ${(0.15 + Math.sin(s * 2.5) * 0.08).toFixed(2)})`);
+      grad.addColorStop(1, 'rgba(71, 196, 198, 0)');
       ctx.beginPath();
       ctx.arc(cx, cy, bulbR * 2.2, 0, Math.PI * 2);
       ctx.fillStyle = grad;
@@ -374,7 +380,7 @@
       ctx.lineTo(cx + neckW, cy + neckH);
       ctx.lineTo(cx + neckW, cy);
       ctx.closePath();
-      ctx.fillStyle = 'rgba(13, 148, 136, 0.12)';
+      ctx.fillStyle = 'rgba(71, 196, 198, 0.12)';
       ctx.fill();
       ctx.strokeStyle = TEAL;
       ctx.lineWidth = 2;
@@ -396,7 +402,7 @@
       ctx.moveTo(cx - bulbR * 0.2, cy);
       ctx.quadraticCurveTo(cx - bulbR * 0.1, cy - bulbR * 0.5, cx, cy - bulbR * 0.15);
       ctx.quadraticCurveTo(cx + bulbR * 0.1, cy - bulbR * 0.5, cx + bulbR * 0.2, cy);
-      ctx.strokeStyle = `rgba(34, 167, 167, ${(0.5 + Math.sin(s * 4) * 0.3).toFixed(2)})`;
+      ctx.strokeStyle = `rgba(71, 196, 198, ${(0.5 + Math.sin(s * 4) * 0.3).toFixed(2)})`;
       ctx.lineWidth = 2;
       ctx.stroke();
 
@@ -412,14 +418,14 @@
         ctx.beginPath();
         ctx.moveTo(px, py);
         ctx.lineTo(cx, cy);
-        ctx.strokeStyle = `rgba(34, 167, 167, ${(0.08 + breathe * 0.05).toFixed(2)})`;
+        ctx.strokeStyle = `rgba(71, 196, 198, ${(0.08 + breathe * 0.05).toFixed(2)})`;
         ctx.lineWidth = 0.8;
         ctx.stroke();
 
         // Dot
         ctx.beginPath();
         ctx.arc(px, py, p.size * (0.8 + Math.sin(s * 3 + p.phase) * 0.2), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(21, 101, 160, ${(0.5 + breathe * 0.3).toFixed(2)})`;
+        ctx.fillStyle = `rgba(244, 160, 196, ${(0.5 + breathe * 0.3).toFixed(2)})`;
         ctx.fill();
       }
     }
@@ -505,7 +511,7 @@
 
       // Connector lines between settled blocks
       const settled = blocks.filter((b) => (cycle - b.delay) >= 0.6);
-      ctx.strokeStyle = 'rgba(34, 167, 167, 0.2)';
+      ctx.strokeStyle = 'rgba(71, 196, 198, 0.2)';
       ctx.lineWidth = 1;
       for (let i = 0; i < settled.length; i++) {
         for (let j = i + 1; j < settled.length; j++) {
@@ -583,7 +589,7 @@
       const ease = easeInOutCubic(progress);
 
       // Grid lines (subtle)
-      ctx.strokeStyle = 'rgba(15, 90, 106, 0.08)';
+      ctx.strokeStyle = 'rgba(51, 154, 156, 0.08)';
       ctx.lineWidth = 0.8;
       for (let i = 0; i < 5; i++) {
         const gy = h * 0.15 + i * (h * 0.7 / 4);
@@ -616,8 +622,8 @@
       ctx.lineTo(first.x, h * 0.85);
       ctx.closePath();
       const areaGrad = ctx.createLinearGradient(0, 0, 0, h);
-      areaGrad.addColorStop(0, 'rgba(13, 148, 136, 0.15)');
-      areaGrad.addColorStop(1, 'rgba(13, 148, 136, 0.02)');
+      areaGrad.addColorStop(0, 'rgba(71, 196, 198, 0.15)');
+      areaGrad.addColorStop(1, 'rgba(71, 196, 198, 0.02)');
       ctx.fillStyle = areaGrad;
       ctx.fill();
 
@@ -639,7 +645,7 @@
         // Glow at tip
         ctx.beginPath();
         ctx.arc(tip.x, tip.y, 8 + Math.sin(s * 4) * 3, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(34, 167, 167, 0.2)';
+        ctx.fillStyle = 'rgba(71, 196, 198, 0.2)';
         ctx.fill();
       }
 
@@ -652,7 +658,7 @@
         const py = pos.y + Math.cos(s * 3 + tr.offset * 5) * 6;
         ctx.beginPath();
         ctx.arc(px, py, tr.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(21, 101, 160, ${(tr.alpha * ease).toFixed(2)})`;
+        ctx.fillStyle = `rgba(244, 160, 196, ${(tr.alpha * ease).toFixed(2)})`;
         ctx.fill();
       }
 
@@ -755,14 +761,14 @@
       ctx.beginPath();
       ctx.moveTo(w * 0.05, pipeY);
       ctx.lineTo(w * 0.95, pipeY);
-      ctx.strokeStyle = 'rgba(13, 148, 136, 0.2)';
+      ctx.strokeStyle = 'rgba(71, 196, 198, 0.2)';
       ctx.lineWidth = 8;
       ctx.lineCap = 'round';
       ctx.stroke();
 
       // Pipeline border
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(13, 148, 136, 0.35)';
+      ctx.strokeStyle = 'rgba(71, 196, 198, 0.35)';
       ctx.beginPath();
       ctx.moveTo(w * 0.05, pipeY - 4);
       ctx.lineTo(w * 0.95, pipeY - 4);
@@ -783,7 +789,7 @@
 
       // Connector lines from gears to pipeline
       ctx.setLineDash([3, 3]);
-      ctx.strokeStyle = 'rgba(15, 90, 106, 0.15)';
+      ctx.strokeStyle = 'rgba(51, 154, 156, 0.15)';
       ctx.lineWidth = 1;
       for (const g of gears) {
         ctx.beginPath();
@@ -822,7 +828,7 @@
       const s = t * 0.001;
 
       // Grid
-      ctx.strokeStyle = 'rgba(15, 90, 106, 0.07)';
+      ctx.strokeStyle = 'rgba(51, 154, 156, 0.07)';
       ctx.lineWidth = 0.8;
       for (let i = 0; i <= 4; i++) {
         const gy = baseY - i * (h * 0.7 / 4);
@@ -849,8 +855,8 @@
       ctx.lineTo(getX(lastVis.x), baseY);
       ctx.closePath();
       const grad = ctx.createLinearGradient(0, h * 0.1, 0, baseY);
-      grad.addColorStop(0, 'rgba(13, 148, 136, 0.18)');
-      grad.addColorStop(1, 'rgba(13, 148, 136, 0.02)');
+      grad.addColorStop(0, 'rgba(71, 196, 198, 0.18)');
+      grad.addColorStop(1, 'rgba(71, 196, 198, 0.02)');
       ctx.fillStyle = grad;
       ctx.fill();
 
@@ -884,7 +890,7 @@
           const rippleAlpha = Math.max(0, 0.3 - ripplePhase * 0.2);
           ctx.beginPath();
           ctx.arc(px, py, rippleR, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(13, 148, 136, ${rippleAlpha.toFixed(2)})`;
+          ctx.strokeStyle = `rgba(71, 196, 198, ${rippleAlpha.toFixed(2)})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -905,7 +911,7 @@
       ctx.beginPath();
       ctx.moveTo(startX, baseY);
       ctx.lineTo(endX, baseY);
-      ctx.strokeStyle = 'rgba(15, 90, 106, 0.2)';
+      ctx.strokeStyle = 'rgba(51, 154, 156, 0.2)';
       ctx.lineWidth = 1;
       ctx.stroke();
     }
@@ -939,7 +945,7 @@
       const bx = cx - bw / 2;
 
       // Building body
-      ctx.fillStyle = 'rgba(13, 148, 136, 0.1)';
+      ctx.fillStyle = 'rgba(71, 196, 198, 0.1)';
       ctx.fillRect(bx, bldgY, bw, bldgH);
       ctx.strokeStyle = TEAL;
       ctx.lineWidth = 2;
@@ -951,7 +957,7 @@
       ctx.lineTo(cx, bldgY - bldgH * 0.25);
       ctx.lineTo(bx + bw + 8, bldgY);
       ctx.closePath();
-      ctx.fillStyle = 'rgba(21, 101, 160, 0.12)';
+      ctx.fillStyle = 'rgba(244, 160, 196, 0.12)';
       ctx.fill();
       ctx.strokeStyle = BLUE;
       ctx.lineWidth = 1.5;
@@ -968,7 +974,7 @@
           const wx = bx + winGapX + c * (winW + winGapX);
           const wy = bldgY + bldgH * 0.1 + winGapY + r * (winH + winGapY);
           const lit = Math.sin(s * 2 + r * 1.3 + c * 0.7) > 0;
-          ctx.fillStyle = lit ? 'rgba(34, 167, 167, 0.35)' : 'rgba(15, 90, 106, 0.1)';
+          ctx.fillStyle = lit ? 'rgba(71, 196, 198, 0.35)' : 'rgba(51, 154, 156, 0.1)';
           ctx.fillRect(wx, wy, winW, winH);
         }
       }
@@ -995,7 +1001,7 @@
         ctx.beginPath();
         ctx.moveTo(ix, iy);
         ctx.lineTo(cx, cy);
-        ctx.strokeStyle = 'rgba(34, 167, 167, 0.1)';
+        ctx.strokeStyle = 'rgba(71, 196, 198, 0.1)';
         ctx.lineWidth = 0.8;
         ctx.stroke();
 
@@ -1003,15 +1009,15 @@
         const bgR = Math.max(12, w * 0.05);
         ctx.beginPath();
         ctx.arc(ix, iy, bgR, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(21, 101, 160, 0.08)';
+        ctx.fillStyle = 'rgba(244, 160, 196, 0.08)';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(21, 101, 160, 0.25)';
+        ctx.strokeStyle = 'rgba(244, 160, 196, 0.25)';
         ctx.lineWidth = 1.2;
         ctx.stroke();
 
         // Symbol
         const alpha = 0.55 + Math.sin(s * 3 + item.angle) * 0.2;
-        ctx.fillStyle = `rgba(21, 101, 160, ${alpha.toFixed(2)})`;
+        ctx.fillStyle = `rgba(244, 160, 196, ${alpha.toFixed(2)})`;
         ctx.fillText(item.label, ix, iy);
       }
     }
